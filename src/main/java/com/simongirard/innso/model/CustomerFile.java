@@ -24,7 +24,6 @@ public class CustomerFile {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(unique = true)
     private String clientName;
     private LocalDate openDate;
 
@@ -47,7 +46,7 @@ public class CustomerFile {
     public CustomerFile(LocalDate openDate, String reference, Message message) {
         this.openDate = openDate;
         this.reference = reference;
-        this.clientName = message.getAuthorName();
+        this.clientName = message.getClientName();
         this.messages.add(message);
     }
 

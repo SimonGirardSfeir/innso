@@ -25,26 +25,25 @@ public class MessageController {
     }
 
     @PostMapping(path = "/addMessage")
-    public void saveMessage(@RequestParam(value = "authorName") String authorName,
+    public void saveMessage(@RequestParam(value = "clientName") String clientName,
                                @RequestParam(value = "content") String content,
                                @RequestParam(value = "channel") String channel) {
 
         EnumConverter enumConverter = new EnumConverter();
         Channel channel1 = enumConverter.convert(channel);
-        Message message = new Message(authorName, content, channel1);
+        Message message = new Message(clientName, content, channel1);
         messageRepository.save(message);
     }
 
     @PostMapping(path = "/helpClient")
     public void responseToClient(@RequestParam(value = "authorName") String authorName,
                             @RequestParam(value = "content") String content,
-                            @RequestParam(value = "channel") String channel,
-                                 @RequestParam(value = "reference") String reference) {
+                            @RequestParam(value = "channel") String channel) {
 
         EnumConverter enumConverter = new EnumConverter();
         Channel channel1 = enumConverter.convert(channel);
         Message message = new Message(authorName, content, channel1);
-        CustomerFile customerFile = customerFileRepository.findByReference(reference);
+        CustomerFile customerFile = customerFileRepository.findAll().iterator().next();
         message.setCustomerFile(customerFile);
         customerFile.getMessages().add(message);
 

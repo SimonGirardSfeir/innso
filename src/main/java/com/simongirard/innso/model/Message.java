@@ -23,7 +23,7 @@ public class Message {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    private String authorName;
+    private String clientName;
     private String content;
 
     /**
@@ -39,8 +39,8 @@ public class Message {
 
     }
 
-    public Message(String authorName, String content, Channel channel) {
-        this.authorName = authorName;
+    public Message(String clientName, String content, Channel channel) {
+        this.clientName = clientName;
         this.content = content;
         this.channel = channel;
     }
@@ -53,12 +53,12 @@ public class Message {
         this.id = id;
     }
 
-    public String getAuthorName() {
-        return authorName;
+    public String getClientName() {
+        return clientName;
     }
 
-    public void setAuthorName(String authorName) {
-        this.authorName = authorName;
+    public void setClientName(String clientName) {
+        this.clientName = clientName;
     }
 
     public String getContent() {

@@ -28,20 +28,18 @@ public class CustomerFileController {
     }
 
     @PostMapping(path = "/addCustomerFile")
-    public void createCustomerFile(@RequestParam(value = "name") String name) {
+    public void createCustomerFile() {
 
-        Message message = messageRepository.findByAuthorName(name);
+        Message message = messageRepository.findAll().iterator().next();
         CustomerFile customerFile = new CustomerFile(LocalDate.now(), null, message);
-        customerFile.setClientName(message.getAuthorName());
         message.setCustomerFile(customerFile);
         customerFileRepository.save(customerFile);
 
     }
 
     @PostMapping(path = "/update")
-    public void updateCustomerFile(@RequestParam(value = "reference") String reference,
-                                   @RequestParam(value = "clientName") String clientName) {
-        CustomerFile customerFile = customerFileRepository.findByClientName(clientName);
+    public void updateCustomerFile(@RequestParam(value = "reference") String reference) {
+        CustomerFile customerFile = customerFileRepository.findAll().iterator().next();
         customerFile.setReference(reference);
         customerFileRepository.save(customerFile);
 
