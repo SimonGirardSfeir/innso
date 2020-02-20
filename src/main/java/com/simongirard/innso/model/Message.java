@@ -29,7 +29,7 @@ public class Message {
     /**
      * Adapted in a simple case, where we dont modify Enum values.
      */
-    @Enumerated(EnumType.ORDINAL)
+    @Enumerated(EnumType.STRING)
     private Channel channel;
 
     @ManyToOne

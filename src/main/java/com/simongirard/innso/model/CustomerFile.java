@@ -30,7 +30,7 @@ public class CustomerFile {
     @Column(unique = true)
     private String reference;
 
-    @OneToMany
+    @OneToMany(mappedBy = "customerFile")
     private Set<Message> messages = new HashSet<>();
 
     public CustomerFile() {
