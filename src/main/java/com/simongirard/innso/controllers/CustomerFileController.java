@@ -1,9 +1,7 @@
 package com.simongirard.innso.controllers;
 
 import com.simongirard.innso.model.CustomerFile;
-import com.simongirard.innso.model.Message;
-import com.simongirard.innso.repositories.CustomerFileRepository;
-import com.simongirard.innso.repositories.MessageRepository;
+import com.simongirard.innso.services.CustomerFileService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,38 +17,26 @@ import java.util.List;
 @RequestMapping("customer-file")
 public class CustomerFileController {
 
-    private final CustomerFileRepository customerFileRepository;
-    private final MessageRepository messageRepository;
+    private final CustomerFileService customerFileService;
 
-    public CustomerFileController(CustomerFileRepository customerFileRepository, MessageRepository messageRepository) {
-        this.customerFileRepository = customerFileRepository;
-        this.messageRepository = messageRepository;
+    public CustomerFileController(CustomerFileService customerFileService) {
+        this.customerFileService = customerFileService;
     }
 
     @PostMapping(path = "/addCustomerFile")
-    public void createCustomerFile() {
-
-        Message message = messageRepository.findAll().iterator().next();
-        CustomerFile customerFile = new CustomerFile(LocalDate.now(), null, message);
-        message.setCustomerFile(customerFile);
-        customerFileRepository.save(customerFile);
+    public CustomerFile createCustomerFile() {
+        return customerFileService.createCustomerFile();
 
     }
 
     @PostMapping(path = "/update")
-    public void updateCustomerFile(@RequestParam(value = "reference") String reference) {
-        CustomerFile customerFile = customerFileRepository.findAll().iterator().next();
-        customerFile.setReference(reference);
-        customerFileRepository.save(customerFile);
-
+    public CustomerFile updateCustomerFile(@RequestParam(value = "reference") String reference) {
+        return customerFileService.updateCustomerFile(reference);
     }
 
     @ResponseBody
     @GetMapping(path = "listCustomerFiles")
     public List<CustomerFile> listCustomerFiles() {
-        List<CustomerFile> list = new ArrayList<>();
-        customerFileRepository.findAll().forEach(list::add);
-
-        return list;
+        return customerFileService.listCustomerFiles();
     }
 }
