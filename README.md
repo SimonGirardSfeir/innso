@@ -1,7 +1,7 @@
 How to execute the application : 
 
 ```
-mvn clean package install
+./mvnw clean package install
 java -jar target/app.jar
 ```
 
