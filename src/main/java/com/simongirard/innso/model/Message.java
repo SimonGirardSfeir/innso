@@ -33,6 +33,7 @@ public class Message {
     private Channel channel;
 
     @ManyToOne
+    @JoinColumn(name = "customer_file_id")
     private CustomerFile customerFile;
 
     public Message(){

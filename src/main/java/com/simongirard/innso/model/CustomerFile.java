@@ -30,17 +30,10 @@ public class CustomerFile {
     @Column(unique = true)
     private String reference;
 
-    @OneToMany(fetch = FetchType.EAGER)
-    @JoinColumn(name = "customer_file_id")
+    @OneToMany
     private Set<Message> messages = new HashSet<>();
 
     public CustomerFile() {
-    }
-
-    public CustomerFile(String clientName, LocalDate openDate, String reference) {
-        this.clientName = clientName;
-        this.openDate = openDate;
-        this.reference = reference;
     }
 
     public CustomerFile(LocalDate openDate, String reference, Message message) {
